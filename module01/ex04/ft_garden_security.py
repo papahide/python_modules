@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    ft_garden_security.py                              :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: paapahid <paapahid@student.42.fr>          +#+  +:+       +#+         #
+#    By: paapahid <paapahid@student.42madrid.c>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/22 01:39:24 by paapahid          #+#    #+#              #
-#    Updated: 2026/02/22 02:14:56 by paapahid         ###   ########.fr        #
+#    Updated: 2026/02/22 18:23:42 by paapahid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,13 @@ class SecurePlant:
 	def get_age(self):
 		return self.age
 
+def create_plant(name, height, age):
+	plant = SecurePlant()
+	return plant	
+	
+
 if __name__ == "__main__":
-	plant = SecurePlant("Rose", 25, 30)
+	plant = create_plant("Rose", 25, 30)
 	print("=== Garden Security System ===")
 	print("Plant created:", plant.name)
 	plant.set_height(20)
