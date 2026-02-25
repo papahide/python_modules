@@ -38,7 +38,7 @@ def create_plant(_name, _height, _age):
 def main():
     plant = create_plant("Rose", 25, 30)
     print("=== Garden Security System ===")
-    print(f"Plant created:", plant._name)
+    print(f"Plant created: {plant._name}")
     plant.set_height(20)
     plant.set_age(30)
     plant.set_height(-5)
