@@ -1,5 +1,8 @@
 
 class Plant:
+    """
+    Class plant that has various method functions
+    """
     def __init__(self, name, height, age):
         self.name = name
         self.height = height
@@ -19,6 +22,10 @@ class Plant:
 
 
 def main():
+    """
+    Main Func. that creates, display and modifies
+    with the method functions the objects created.
+    """
     rose = Plant("Rose", 25, 30)
     sunflower = Plant("Sunflower", 80, 45)
     cactus = Plant("Cactus", 15, 120)

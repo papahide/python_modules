@@ -1,5 +1,8 @@
 
 class Plant:
+    """
+    Plant Class
+    """
     def __init__(self, name, height, age):
         self.name = name
         self.height = height
@@ -7,6 +10,10 @@ class Plant:
 
 
 def main():
+    """
+    This is tha main func used to
+    create the plants more efficiently
+    """
     plants = [
         ("Oxalis versicolor", 12, 43),
         ("Anguloa uniflora", 9, 16),

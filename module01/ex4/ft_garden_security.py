@@ -1,11 +1,19 @@
 
 class SecurePlant:
+    """
+    Secure plant class that uses protected
+    variables to restrict direct access to
+    a object's internal state
+    """
     def __init__(self, _name, _height, _age):
         self._name = _name
         self._height = _height
         self._age = _age
 
     def set_height(self, new_height):
+        """
+        Set height handling bad inputs
+        """
         if new_height < 0:
             print("\nInvalid operation attempted: height",
                   str(new_height) + "cm [REJECTED]")
@@ -15,6 +23,9 @@ class SecurePlant:
             print("Height updated:", str(new_height) + "cm [OK]")
 
     def set_age(self, new_age):
+        """
+        Set height handling bad inputs
+        """
         if new_age < 0:
             print("\nInvalid operation attempted: age",
                   str(new_age) + "days [REJECTED]")
@@ -31,11 +42,18 @@ class SecurePlant:
 
 
 def create_plant(_name, _height, _age):
+    """
+    Plant creator
+    """
     plant = SecurePlant(_name, _height, _age)
     return plant
 
 
 def main():
+    """
+    Main function to display the object
+    created and modifying it
+    """
     plant = create_plant("Rose", 25, 30)
     print("=== Garden Security System ===")
     print(f"Plant created: {plant._name}")

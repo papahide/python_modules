@@ -1,39 +1,71 @@
 
 class Plant:
+    """
+    Father Plant Class
+    """
     def __init__(self, name, height):
         self.name = name
         self.height = height
 
+
 class FloweringPlant(Plant):
+    """
+    Child class that inherits from
+    Plant and father class of PrizeFlower
+    """
     def __init__(self, name, height, color):
         super().__init__(name, height)
         self.flower_color = color
         self.is_blooming = True
 
+
 class PrizeFlower(FloweringPlant):
+    """
+    Child class that inherits from
+    FloweringPlant
+    """
     def __init__(self, name, height, color, prize):
         super().__init__(name, height, color)
         self.prize_points = prize
 
+
 class GardenManager:
+    """
+    Class methods operate on the class itself
+    rather than on individual instances
+    """
     total_gardens = 0
     managers = {}
 
     @classmethod
     def create_garden_network(cls):
+
         print(f"Total gardens managed: {cls.total_gardens}")
 
     @classmethod
     def get_points(cls):
-        score = f"Garden scores -"
+        """
+        Calculates global garden statistics.
+        It doesn't belong to a single manager.
+        It belongs to the whole system.
+        """
+        score = "Garden scores -"
         for name, manager in cls.managers.items():
             points = cls.GardenStats.calculate_score(manager.plants)
             score += f" {name}: {points}"
         print(score)
 
     class GardenStats:
+        """
+        Do not use self
+        Do not use cls
+        Just process data passed as arguments
+        """
         @staticmethod
-        def total_growth(plants, growth = 1):
+        def total_growth(plants, growth=1):
+            """
+            Calculates the total growth
+            """
             total = 0
             for plant in plants:
                 total += growth
@@ -41,6 +73,9 @@ class GardenManager:
 
         @staticmethod
         def total_plants(plants):
+            """
+            Calculates the plants added
+            """
             total = 0
             for plant in plants:
                 total += 1
@@ -48,6 +83,9 @@ class GardenManager:
 
         @staticmethod
         def count_type(plants):
+            """
+            Counts how many of every type  of Plant
+            """
             counts = {'regular': 0, 'flowering': 0, 'prize flowers': 0}
             for plant in plants:
                 if isinstance(plant, PrizeFlower):
@@ -61,9 +99,12 @@ class GardenManager:
         @staticmethod
         def height_validate(height):
             return height > 0
-        
+
         @staticmethod
-        def calculate_score (plants):
+        def calculate_score(plants):
+            """
+            Calculates the score
+            """
             points = 0
             for plant in plants:
                 points += plant.height
@@ -78,20 +119,30 @@ class GardenManager:
         GardenManager.managers[self.owner_name] = self
 
     def add_plants(self, plants):
+        """
+        Adds all the plants to the garden manager passed through a list
+        """
         for plant in plants:
-                if GardenManager.GardenStats.height_validate(plant.height) == False:
-                    return False
-                self.plants.append(plant)
-                print(f"Added {plant.name} to {self.owner_name}'s garden")
+            if GardenManager.GardenStats.\
+               height_validate(plant.height) is False:
+                return False
+            self.plants.append(plant)
+            print(f"Added {plant.name} to {self.owner_name}'s garden")
         return True
 
-    def grow_plants(self, growth = 1):
+    def grow_plants(self, growth=1):
+        """
+        Makes the plants grow (increase height)
+        """
         print(f"\n{self.owner_name} is helping all plants grow...")
         for plant in self.plants:
             plant.height += growth
             print(f"{plant.name} grew {growth}cm")
 
     def garden_report(self):
+        """
+        Prints the report of the garden of a manager
+        """
         print("Plants in garden:")
         for plant in self.plants:
             output = f"- {plant.name}: {plant.height}cm"
@@ -100,27 +151,28 @@ class GardenManager:
             if isinstance(plant, PrizeFlower):
                 output += f", Prize points: {plant.prize_points}"
             print(output)
-        print(f"\nPlants added: {GardenManager.GardenStats.total_plants(self.plants)}, " \
-              f"Total growth = {GardenManager.GardenStats.total_growth(self.plants)}cm")
+        print(f"\nPlants added: \
+              {GardenManager.GardenStats.total_plants(self.plants)}, \
+              Total growth = \
+              {GardenManager.GardenStats.total_growth(self.plants)}cm")
         flower_type = GardenManager.GardenStats.count_type(self.plants)
-        print(f"Plant types: {flower_type['regular']} regular, " \
-              f"{flower_type['flowering']} flowering, " \
-              f"{flower_type['prize flowers'] } prize flowers")
+        print(f"Plant types: {flower_type['regular']} regular, \
+              {flower_type['flowering']} flowering, \
+              {flower_type['prize flowers'] } prize flowers")
+
 
 def main():
+    """
+    Main function witch checkes that everything runs correctly
+    """
     print("=== Garden Management System Demo ===\n")
     plants1 = [
         Plant("Oak Tree", 100),
         FloweringPlant("Rose", 25, "red"),
         PrizeFlower("Sunflower", 50, "yellow", 10)
     ]
-    # plants2 = [
-    #         Plant("Cactus", 15),
-    #         FloweringPlant("Daisy", 10, "white"),
-    #         PrizeFlower("Orchid", 20, "purple", 50)
-    #     ]
     manager1 = GardenManager("Alice")
-    manager2 = GardenManager("Bob")
+    # manager2 = GardenManager("Bob")
     height_validation = manager1.add_plants(plants1)
     manager1.grow_plants()
     print("\n=== Alice's Garden Report ===")
@@ -128,7 +180,7 @@ def main():
     print(f"\nHeight validation: {height_validation}")
     GardenManager.get_points()
     GardenManager.create_garden_network()
-    
+
 
 if __name__ == "__main__":
     main()
