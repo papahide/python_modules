@@ -3,13 +3,13 @@ class Plant:
     """
     Class Plant
     """
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age = age
 
 
-def main():
+def main() -> None:
     """
     Main Func. that creates and
     displays the objects created.

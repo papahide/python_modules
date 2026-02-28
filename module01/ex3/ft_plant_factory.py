@@ -3,13 +3,13 @@ class Plant:
     """
     Plant Class
     """
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age = age
 
 
-def main():
+def main() -> None:
     """
     This is tha main func used to
     create the plants more efficiently

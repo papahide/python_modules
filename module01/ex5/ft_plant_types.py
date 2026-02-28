@@ -3,7 +3,8 @@ class Plant:
     """
     Father Plant class
     """
-    def __init__(self, name, height, age):
+    def __init__(self, name: str,
+                 height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age = age
@@ -14,17 +15,18 @@ class Flower(Plant):
     Child class that inherits from
     Plant and adds instance methods
     """
-    def __init__(self, name, height, age, color):
+    def __init__(self, name: str, height: int,
+                 age: int, color: str) -> None:
         super().__init__(name, height, age)
         self.color = color
 
-    def bloom(self):
+    def bloom(self) -> None:
         print(f"{self.name} is blooming beautifully!\n")
 
-    def get_details(self):
-        print(f"{self.name}, (Flower): \
-              {self.height}cm, {self.age} \
-              days, {self.color} color")
+    def get_details(self) -> None:
+        print(f"{self.name}, (Flower): "
+              f"{self.height}cm, {self.age} "
+              f"days, {self.color} color")
         self.bloom()
 
 
@@ -33,18 +35,21 @@ class Tree(Plant):
     Child class that inherits from
     Plant and adds instance methods
     """
-    def __init__(self, name, height, age, trunk_diameter):
+    def __init__(
+            self, name: str, height: int,
+            age: int, trunk_diameter: int
+            ) -> None:
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
 
-    def produce_shade(self):
-        print(f"{self.name} provides \
-              {(self.height * self.trunk_diameter) // 320} \
-              square meters of shade\n")
+    def produce_shade(self) -> None:
+        print(f"{self.name} provides "
+              f"{(self.height * self.trunk_diameter) // 320} "
+              f"square meters of shade\n")
 
-    def get_details(self):
-        print(f"{self.name}, (Tree): {self.height}cm, \
-              {self.age} days, {self.trunk_diameter} diameter")
+    def get_details(self) -> None:
+        print(f"{self.name}, (Tree): {self.height}cm, "
+              f"{self.age} days, {self.trunk_diameter} diameter")
         self.produce_shade()
 
 
@@ -53,17 +58,19 @@ class Vegetable(Plant):
     Child class that inherits from
     Plant and adds instance methods
     """
-    def __init__(self, name, height, age, harvest_season, nutritional_value):
+    def __init__(self, name: str, height: int,
+                 age: int, harvest_season: str,
+                 nutritional_value: str) -> None:
         super().__init__(name, height, age)
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value
 
-    def describe_nutrition(self):
+    def describe_nutrition(self) -> None:
         print(f"{self.name} is rich in {self.nutritional_value}")
 
-    def get_details(self):
-        print(f"{self.name}, (Vegetable): {self.height}cm, \
-              {self.age} days, {self.harvest_season} harvest")
+    def get_details(self) -> None:
+        print(f"{self.name}, (Vegetable): {self.height}cm, "
+              f"{self.age} days, {self.harvest_season} harvest")
         self.describe_nutrition()
 
 

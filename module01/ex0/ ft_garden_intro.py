@@ -1,5 +1,5 @@
 
-def main():
+def main() -> None:
     """
     Main func. that displays the value of the variables.
     """

@@ -3,25 +3,25 @@ class Plant:
     """
     Class plant that has various method functions
     """
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age = age
 
-    def plant_grow(self):
+    def plant_grow(self) -> None:
         self.height += 6
 
-    def plant_age(self):
+    def plant_age(self) -> None:
         self.age += 6
 
-    def get_info(self):
+    def get_info(self) -> None:
         print(
             self.name + ":",
             str(self.height) + "cm,",
             str(self.age) + " days old")
 
 
-def main():
+def main() -> None:
     """
     Main Func. that creates, display and modifies
     with the method functions the objects created.

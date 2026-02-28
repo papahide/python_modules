@@ -3,7 +3,7 @@ class Plant:
     """
     Father Plant Class
     """
-    def __init__(self, name, height):
+    def __init__(self, name: str, height: int) -> None:
         self.name = name
         self.height = height
 
@@ -13,7 +13,7 @@ class FloweringPlant(Plant):
     Child class that inherits from
     Plant and father class of PrizeFlower
     """
-    def __init__(self, name, height, color):
+    def __init__(self, name: str, height: int, color: str) -> None:
         super().__init__(name, height)
         self.flower_color = color
         self.is_blooming = True
@@ -24,7 +24,7 @@ class PrizeFlower(FloweringPlant):
     Child class that inherits from
     FloweringPlant
     """
-    def __init__(self, name, height, color, prize):
+    def __init__(self, name: str, height: int, color: str, prize: int) -> None:
         super().__init__(name, height, color)
         self.prize_points = prize
 
@@ -34,16 +34,16 @@ class GardenManager:
     Class methods operate on the class itself
     rather than on individual instances
     """
-    total_gardens = 0
-    managers = {}
+    total_gardens: int = 0
+    managers: dict[str, "GardenManager"] = {}
 
     @classmethod
-    def create_garden_network(cls):
+    def create_garden_network(cls) -> None:
 
         print(f"Total gardens managed: {cls.total_gardens}")
 
     @classmethod
-    def get_points(cls):
+    def get_points(cls) -> None:
         """
         Calculates global garden statistics.
         It doesn't belong to a single manager.
@@ -62,7 +62,7 @@ class GardenManager:
         Just process data passed as arguments
         """
         @staticmethod
-        def total_growth(plants, growth=1):
+        def total_growth(plants: list, growth=1) -> int:
             """
             Calculates the total growth
             """
@@ -72,7 +72,7 @@ class GardenManager:
             return total
 
         @staticmethod
-        def total_plants(plants):
+        def total_plants(plants: list) -> int:
             """
             Calculates the plants added
             """
@@ -82,7 +82,7 @@ class GardenManager:
             return total
 
         @staticmethod
-        def count_type(plants):
+        def count_type(plants: list) -> dict:
             """
             Counts how many of every type  of Plant
             """
@@ -97,11 +97,11 @@ class GardenManager:
             return counts
 
         @staticmethod
-        def height_validate(height):
+        def height_validate(height: int) -> int:
             return height > 0
 
         @staticmethod
-        def calculate_score(plants):
+        def calculate_score(plants: list) -> int:
             """
             Calculates the score
             """
@@ -112,25 +112,24 @@ class GardenManager:
                     points += plant.prize_points
             return points
 
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         self.owner_name = name
         self.plants = []
         GardenManager.total_gardens += 1
         GardenManager.managers[self.owner_name] = self
 
-    def add_plants(self, plants):
+    def add_plants(self, plants: list) -> None:
         """
         Adds all the plants to the garden manager passed through a list
         """
         for plant in plants:
             if GardenManager.GardenStats.\
                height_validate(plant.height) is False:
-                return False
+                return
             self.plants.append(plant)
             print(f"Added {plant.name} to {self.owner_name}'s garden")
-        return True
 
-    def grow_plants(self, growth=1):
+    def grow_plants(self, growth=1) -> None:
         """
         Makes the plants grow (increase height)
         """
@@ -139,7 +138,7 @@ class GardenManager:
             plant.height += growth
             print(f"{plant.name} grew {growth}cm")
 
-    def garden_report(self):
+    def garden_report(self) -> None:
         """
         Prints the report of the garden of a manager
         """
@@ -151,17 +150,17 @@ class GardenManager:
             if isinstance(plant, PrizeFlower):
                 output += f", Prize points: {plant.prize_points}"
             print(output)
-        print(f"\nPlants added: \
-              {GardenManager.GardenStats.total_plants(self.plants)}, \
-              Total growth = \
-              {GardenManager.GardenStats.total_growth(self.plants)}cm")
+        print(f"\nPlants added: "
+              f"{GardenManager.GardenStats.total_plants(self.plants)}, "
+              f"Total growth = "
+              f"{GardenManager.GardenStats.total_growth(self.plants)}cm")
         flower_type = GardenManager.GardenStats.count_type(self.plants)
-        print(f"Plant types: {flower_type['regular']} regular, \
-              {flower_type['flowering']} flowering, \
-              {flower_type['prize flowers'] } prize flowers")
+        print(f"Plant types: {flower_type['regular']} regular, "
+              f"{flower_type['flowering']} flowering, "
+              f"{flower_type['prize flowers'] } prize flowers")
 
 
-def main():
+def main() -> None:
     """
     Main function witch checkes that everything runs correctly
     """

@@ -5,12 +5,12 @@ class SecurePlant:
     variables to restrict direct access to
     a object's internal state
     """
-    def __init__(self, _name, _height, _age):
-        self._name = _name
-        self._height = _height
-        self._age = _age
+    def __init__(self, name: str, height: int, age: int) -> None:
+        self.__name = name
+        self.__height = height
+        self.__age = age
 
-    def set_height(self, new_height):
+    def set_height(self, new_height: int) -> None:
         """
         Set height handling bad inputs
         """
@@ -19,10 +19,10 @@ class SecurePlant:
                   str(new_height) + "cm [REJECTED]")
             print("Security: Negative height rejected")
         else:
-            self._height = new_height
+            self.__height = new_height
             print("Height updated:", str(new_height) + "cm [OK]")
 
-    def set_age(self, new_age):
+    def set_age(self, new_age: int) -> None:
         """
         Set height handling bad inputs
         """
@@ -31,37 +31,40 @@ class SecurePlant:
                   str(new_age) + "days [REJECTED]")
             print("Security: Negative age rejected")
         else:
-            self._age = new_age
+            self.__age = new_age
             print("Age updated:", str(new_age) + " days [OK]")
 
-    def get_height(self):
-        return self._height
+    def get_name(self) -> str:
+        print(self.__name)
 
-    def get_age(self):
-        return self._age
+    def get_height(self) -> int:
+        return self.__height
+
+    def get_age(self) -> int:
+        return self.__age
 
 
-def create_plant(_name, _height, _age):
+def create_plant(name: str, height: int, age: int) -> SecurePlant:
     """
     Plant creator
     """
-    plant = SecurePlant(_name, _height, _age)
+    plant = SecurePlant(name, height, age)
     return plant
 
 
-def main():
+def main() -> None:
     """
     Main function to display the object
     created and modifying it
     """
     plant = create_plant("Rose", 25, 30)
     print("=== Garden Security System ===")
-    print(f"Plant created: {plant._name}")
+    print(f"Plant created: {plant.get_name()}")
     plant.set_height(20)
     plant.set_age(30)
     plant.set_height(-5)
     print("\nCurrent plant:",
-          plant._name,
+          plant.get_name(),
           "(" + str(plant.get_height()) + "cm,",
           str(plant.get_age()) + " days" + ")")
 
