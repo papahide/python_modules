@@ -22,6 +22,7 @@ class WaterError(GardenError):
     """
     pass
 
+
 def test_plant(days_without_water: int, plant: str) -> None:
     """
     Tester for plants error
@@ -29,12 +30,14 @@ def test_plant(days_without_water: int, plant: str) -> None:
     if days_without_water >= 14:
         raise PlantError(f"The {plant} plant is wilting!")
 
+
 def test_water(water_level: int) -> None:
     """
     Tester for water error
     """
     if water_level < 10:
         raise WaterError("Not enough water in the tank!")
+
 
 def main() -> None:
     """
@@ -67,6 +70,7 @@ def main() -> None:
         print(f"Caught WaterError: {err}")
 
     print("\nAll custom error types work correctly!")
+
 
 if __name__ == "__main__":
     main()

@@ -11,6 +11,7 @@ def garden_operations(error: str) -> None:
             plant = {"fruta": "platano"}
             plant["hola"]
 
+
 def test_error_types() -> None:
     print("=== Garden Error Types Demo ===")
 
@@ -29,12 +30,12 @@ def test_error_types() -> None:
             print(f"Caught {error}: {err}")
         except KeyError as err:
             print(f"Caught {error}: {err}")
-    print(f"\nTesting multiple errors together...")
+    print("\nTesting multiple errors together...")
 
     try:
         garden_operations(error)
     except (ValueError, ZeroDivisionError, FileNotFoundError, KeyError):
-        print(f"Caught an error, but program continues!")
+        print("Caught an error, but program continues!")
 
     print("\nAll error types tested successfully!")
 

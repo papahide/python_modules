@@ -5,6 +5,7 @@ class PlantError(Exception):
     """
     pass
 
+
 def test_watering_plants(plant: str) -> None:
     """
     Waters the plant and
@@ -14,6 +15,7 @@ def test_watering_plants(plant: str) -> None:
         raise PlantError("Cannot water None - invalid plant!")
     else:
         print(f"Watering {plant}")
+
 
 def water_plants(plant_list: list) -> None:
     """
@@ -30,6 +32,7 @@ def water_plants(plant_list: list) -> None:
         print(f"Error: {err}")
     finally:
         print("Closing watering system (cleanup)")
+
 
 def main():
     """
@@ -56,6 +59,7 @@ def main():
     water_plants(plants_error)
 
     print("\nCleanup always happens, even with errors!")
+
 
 if __name__ == "__main__":
     main()

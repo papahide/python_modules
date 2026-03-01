@@ -14,6 +14,7 @@ def check_temperature(temp_str):
     except ValueError:
         print(f"Error: '{temp_str}' is not a valid number")
 
+
 def main():
     """
     Main function that passes some arguments
