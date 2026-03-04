@@ -14,7 +14,7 @@ def main() -> None:
     This is tha main func used to
     create the plants more efficiently
     """
-    plants = [
+    plants: list = [
         ("Oxalis versicolor", 12, 43),
         ("Anguloa uniflora", 9, 16),
         ("Diphylleia grayi", 5, 7),

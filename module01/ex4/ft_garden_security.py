@@ -7,8 +7,8 @@ class SecurePlant:
     """
     def __init__(self, name: str, height: int, age: int) -> None:
         self.__name = name
-        self.__height = height
-        self.__age = age
+        self.set_height(height)
+        self.set_age(age)
 
     def set_height(self, new_height: int) -> None:
         """
