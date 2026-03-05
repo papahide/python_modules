@@ -1,5 +1,5 @@
 
-def check_temperature(temp_str):
+def check_temperature(temp_str: set) -> None:
     """
     Checks for Value errors and checks the temperature is right.
     """
@@ -15,7 +15,7 @@ def check_temperature(temp_str):
         print(f"Error: '{temp_str}' is not a valid number")
 
 
-def main():
+def main() -> None:
     """
     Main function that passes some arguments
     to "check_temperature" to check the outputs
