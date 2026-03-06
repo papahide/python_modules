@@ -24,7 +24,8 @@ class PrizeFlower(FloweringPlant):
     Child class that inherits from
     FloweringPlant
     """
-    def __init__(self, name: str, height: int, color: str, prize: int) -> None:
+    def __init__(self, name: str, height: int,
+                 color: str, prize: int) -> None:
         super().__init__(name, height, color)
         self.prize_points = prize
 
@@ -34,16 +35,16 @@ class GardenManager:
     Class methods operate on the class itself
     rather than on individual instances
     """
-    total_gardens: int = 0
-    managers: dict[str, "GardenManager"] = {}
+    total_gardens = 0
+    managers = {}
 
     @classmethod
-    def create_garden_network(cls) -> None:
+    def create_garden_network(cls):
 
         print(f"Total gardens managed: {cls.total_gardens}")
 
     @classmethod
-    def get_points(cls) -> None:
+    def get_points(cls):
         """
         Calculates global garden statistics.
         It doesn't belong to a single manager.
@@ -62,7 +63,7 @@ class GardenManager:
         Just process data passed as arguments
         """
         @staticmethod
-        def total_growth(plants: list, growth=1) -> int:
+        def total_growth(plants: str, growth=1) -> None:
             """
             Calculates the total growth
             """
@@ -72,7 +73,7 @@ class GardenManager:
             return total
 
         @staticmethod
-        def total_plants(plants: list) -> int:
+        def total_plants(plants: str) -> None:
             """
             Calculates the plants added
             """
@@ -82,7 +83,7 @@ class GardenManager:
             return total
 
         @staticmethod
-        def count_type(plants: list) -> dict:
+        def count_type(plants: str) -> None:
             """
             Counts how many of every type  of Plant
             """
@@ -97,11 +98,11 @@ class GardenManager:
             return counts
 
         @staticmethod
-        def height_validate(height: int) -> int:
+        def height_validate(height: int) -> None:
             return height > 0
 
         @staticmethod
-        def calculate_score(plants: list) -> int:
+        def calculate_score(plants) -> None:
             """
             Calculates the score
             """
@@ -118,16 +119,17 @@ class GardenManager:
         GardenManager.total_gardens += 1
         GardenManager.managers[self.owner_name] = self
 
-    def add_plants(self, plants: list) -> None:
+    def add_plants(self, plants) -> None:
         """
         Adds all the plants to the garden manager passed through a list
         """
         for plant in plants:
             if GardenManager.GardenStats.\
                height_validate(plant.height) is False:
-                return
+                return False
             self.plants.append(plant)
             print(f"Added {plant.name} to {self.owner_name}'s garden")
+        return True
 
     def grow_plants(self, growth=1) -> None:
         """
@@ -165,7 +167,7 @@ def main() -> None:
     Main function witch checkes that everything runs correctly
     """
     print("=== Garden Management System Demo ===\n")
-    plants1 = [
+    plants1: list = [
         Plant("Oak Tree", 100),
         FloweringPlant("Rose", 25, "red"),
         PrizeFlower("Sunflower", 50, "yellow", 10)
