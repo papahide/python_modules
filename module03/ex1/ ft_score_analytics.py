@@ -14,12 +14,16 @@ def ft_parse_args(args: list[str]) -> list[int]:
             scores.append(score)
         except ValueError as err:
             print(f"Error: {err}")
-            print(f"Skipping invalid score: {arg}\n")
     return scores
 
 
 def ft_args(args: list[str]):
     scores: list[int] = ft_parse_args(args)
+
+    if not scores:
+        ft_no_args()
+        return
+
     print(f"Scores processed: {scores}")
     print(f"Total players {len(scores)}")
     print(f"Total score: {sum(scores)}")

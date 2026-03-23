@@ -1,72 +1,79 @@
 import math
 
 
-def ft_create_positions(positions: list[int]) -> tuple[int, ...]:
-    pos = tuple(positions)
-    print(f"Position created: {pos}")
-    return pos
+def get_player_pos() -> tuple[float, float, float]:
+    """
+    permitted = "0123456789.-, "
+    """
+    while True:
+        coord_str = input("Enter new coordinates as floats in format 'x,y,z': ")
 
+        comma_count = 0
+        for char in coord_str:
+            if char == ",":
+                comma_count += 1
 
-def ft_distance(p1: tuple[int, ...], p2: tuple[int, ...] | None) -> None:
-    if p2 is not None:
-        x1, y1, z1 = p1
-        x2, y2, z2 = p2
-        distance = math.sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)
-        print(f"Distance between {p1} and {p2}: {distance:.2f}\n")
-    else:
-        return
+        if comma_count != 2:
+            print("Invalid syntax")
+            continue
 
+        final_coords: list[float] = []
+        current_nbr = ""
+        error = False
 
-def ft_parse_pos(spos: str) -> tuple[int, ...] | None:
-    print(f"Parsing coordinates: \"{spos}\"")
-    lpos = spos.split(',')
-    coord: list[int] = []
-    for p in lpos:
         try:
-            num = int(p)
-            coord.append(num)
-        except ValueError as err:
-            print(f"Error parsing coordinates: {err}")
-            print(f"Error details - Type: {type(err).__name__}"
-                  f", Args: {err.args}\n")
-            return None
-    pos = tuple(coord)
-    print(f"Parsed position: {pos}")
-    return tuple(pos)
+            for char in coord_str + ",":
+                if char == ",":
+                    try:
+                        if current_nbr:
+                            final_coords.append(float(current_nbr))
+                            current_nbr = ""
+                        else:
+                            raise ValueError
+                    except ValueError:
+                        print(f"Error on parameter '{current_nbr}': could not convert string to float: '{current_nbr}'")
+                        error = True
+                        break
+                elif char != " ":
+                    current_nbr += char
+
+            if error:
+                continue
+
+            if len(final_coords) == 3:
+                return (final_coords[0], final_coords[1], final_coords[2])
+            else:
+                print("Invalid syntax")
+
+        except Exception:
+            print("Invalid syntax")
 
 
-def ft_coordinates(pos: tuple[int, ...]) -> tuple[int, ...]:
-    return (pos)
+def ft_display_coords(coords: tuple[float, float, float]) -> None:
+    print(f"Got a first tuple: {coords}")
+    print(f"It includes: X={coords[0]}, Y={coords[1]}, Z={coords[2]}")
+
+
+def ft_distance(p1: tuple[float, float, float], p2: tuple[float, float, float]) -> float:
+    x1, y1, z1 = p1
+    x2, y2, z2 = p2
+    distance = math.sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)
+    return distance
 
 
 def main() -> None:
-    print("=== Game Coordinate System ===")
+    print("=== Game Coordinate System ===\n")
     pos_ini: tuple[int, int, int] = (0, 0, 0)
+    print("Get a first set of coordinates")
+    first_coord: tuple[float, ...] = get_player_pos()
+    ft_display_coords(first_coord)
+    dist_center: float = ft_distance(pos_ini, first_coord)
+    print(f"Distance to center: {dist_center:.4f}")
 
-    """
-    Valid coordinates and no parsing
-    """
-    pos: tuple[int, ...] | None = ft_create_positions([1, 2, 3])
-    ft_distance(pos_ini, pos)
-
-    """
-    Valid coordinates with parsing
-    """
-    spos = "3,2,1"
-    pos: tuple[int, ...] | None = ft_parse_pos(spos)
-    ft_distance(pos_ini, pos)
-
-    """
-    Invalid coordinates
-    """
-    ipos = "asdf,adf,asdf"
-    ft_parse_pos(ipos)
-
-    if pos is not None:
-        x, y, z = ft_coordinates(pos)
-        print("Unpacking demonstration:")
-        print(f"Player at x={x}, y={y}, z={z}")
-        print(f"Coordinates: X={x}, Y={y}, Z={z}")
+    print("\nGet a second set of coordinates")
+    second_coord = get_player_pos()
+    dist_points: float = ft_distance(first_coord, second_coord)
+    print(f"Distance to center: {dist_points:.4f}")
 
 
 if __name__ == "__main__":
