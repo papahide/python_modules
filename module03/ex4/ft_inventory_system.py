@@ -10,7 +10,7 @@ def ft_check_item_amount(amount: str) -> int | None:
         print("Item amount has to be int")
 
 
-def ft_add_items(itemstr: list[str], item_nbr: int, inventory: dict[str, int]) -> None:
+def ft_add_items(itemstr: list[str], inventory: dict[str, int]) -> None:
     for item in itemstr:
         pos = 0
         for char in item:
@@ -64,7 +64,7 @@ def main() -> None:
         print("=== Inventory System Analysis ===")
 
         inventory: dict[str, int] = {}
-        ft_add_items(sys.argv[1:], argn, inventory)
+        ft_add_items(sys.argv[1:], inventory)
 
         total_items = sum(inventory.values())
         print(f"Total items in inventory: {total_items}")
