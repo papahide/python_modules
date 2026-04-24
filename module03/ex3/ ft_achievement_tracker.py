@@ -1,38 +1,55 @@
+import random
+
+
 class Player:
     def __init__(self, name: str, achievements: set[str]) -> None:
         self.name = name
         self.achievements = achievements
 
 
+def gen_player_achievements() -> set[str]:
+    total_ach: list[str] = ['Crafting Genius', 'World Savior', 'Master Explorer', 
+                              'Collector Supreme', 'Untouchable', 'Boss Slayer', 
+                              'Strategist', 'Speed Runner', 'Survivor', 'Treasure Hunter', 
+                              'First Steps', 'Sharp Mind',  'Unstopable']
+    ach_len = random.randint(4, 10)
+    ach_player = random.sample(total_ach, k=ach_len)
+    return set(ach_player)
+
+
 def main() -> None:
     print("=== Achievement Tracker System ===\n")
 
-    alice = Player("Alice", {'first_kill', 'level_10', 'treasure_hunter', 'speed_demon'})
-    bob = Player("Bob",  {'first_kill', 'level_10', 'boss_slayer', 'collector'})
-    charlie = Player("Charlie", {'level_10', 'treasure_hunter', 'boss_slayer', 'speed_demon', 'perfectionist'})
-    players = [alice, bob, charlie]
+    players: dict[str, set[str]] = {"Alice": gen_player_achievements(),
+                                    "Bob": gen_player_achievements(),
+                                    "Charlie": gen_player_achievements(),
+                                    "Dylan": gen_player_achievements()}
+    
+    for name, acheivements in players.items():
+        print(f"Player {name}: {acheivements}")
 
-    for player in players:
-        print(f"Player {player.name} achievements: {player.achievements}")
+    all_distinct: set[str] = set()
 
-    a_ach = alice.achievements
-    b_ach = bob.achievements
-    c_ach = charlie.achievements
-    print("\n=== Achievement Analytics ===")
-    unique_ach = a_ach.union(b_ach, c_ach)
-    print(f"All unique achievements: {unique_ach}")
-    print(f"Total unique achievements: {len(unique_ach)}\n")
+    all_values = list(players.values())
+    common: set[str] = all_values[0].intersection(*all_values[1:])
 
-    a = a_ach - b_ach - c_ach
-    b = b_ach - a_ach - c_ach
-    c = c_ach - a_ach - b_ach
-    print(f"Common to all players: {a_ach.intersection(b_ach, c_ach)}")
-    print(f"Rare achievements (1 player): {a.union(b, c)}\n")
+    for ach in players.values():
+        all_distinct = all_distinct.union(ach)
 
-    print(f"Alice vs Bob common: {a_ach.intersection(b_ach)}")
-    print(f"Alice unique: {a_ach.difference(b_ach)}")
-    print(f"Bob unique: {b_ach.difference(a_ach)}")
+    print(f"\nAll distinct achievements: {all_distinct}\n")
+    print(f"\nCommon achievements: {common}\n")
 
+    for name, acheivements in players.items():
+        others: list[set[str]] = []
+        for n, s in players.items():
+            if n != name:
+                others.append(s)
+        print(f"Only {name} has: {acheivements.difference(*others)}")
+
+    print("\n")
+
+    for name, acheivements in players.items():
+        print(f"{name} is missing: {all_distinct.difference(acheivements)}")
 
 if __name__ == "__main__":
     main()
