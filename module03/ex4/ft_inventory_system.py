@@ -1,58 +1,68 @@
 import sys
 
+class ItemError(Exception):
+    pass
 
-def ft_check_item_amount(amount: str) -> int | None:
-    try:
-        qtity = int(amount)
-        return qtity
-    except ValueError as err:
-        print(f"Error: {err}")
-        print("Item amount has to be int")
+def check_item(arg: str) -> bool:
+    for i in arg:
+        if i == ':':
+            return True
+    return False
 
-
-def ft_add_items(itemstr: list[str], inventory: dict[str, int]) -> None:
-    for item in itemstr:
-        pos = 0
-        for char in item:
-            if char == ':':
-                break
-            pos += 1
-        item_name = item[:pos]
-        item_amount = ft_check_item_amount(item[pos+1:])
-        if item_amount is not None:
-            inventory.update({item_name: item_amount})
-
-
-def ft_display_items(inventory: dict[str, int], total_items: int) -> None:
-    for item, amount in inventory.items():
-        percentage = (amount / total_items) * 100
-        print(f"{item}: {amount} units ({percentage:.1f}%)")
-
-
-def ft_display_exremes(inv: dict[str, int]) -> None:
-    abund = max(inv.values())
-    for i in range(2):
-        for name, qty in inv.items():
-            if qty == abund:
-                print(f"Most abundant: {name} ({qty} units)")
-                break
-        abund = min(inv.values())
-        i += 1
-
-
-def ft_create_categories(categories: dict[str, dict[str, int]],
-                         inv: dict[str, int]) -> None:
-    for item, qty in inv.items():
-        if qty > 3:
-            categories["Moderate"].update({item: qty})
+def create_dict(args: list[str]) -> dict[str, int]:
+    inv: dict[str, int] = {}
+    for arg in args:
+        if check_item(arg) == True:
+            name = ""
+            value = ""
+            for i in range(len(arg)):
+                if arg[i] == ":":
+                    name = arg[:i]
+                    value = arg[i+1:]
         else:
-            categories["Scarce"].update({item: qty})
+            print(f"Error - invalid parameter '{arg}'")
+            continue
+        try:
+            value = int(value)
+        except ValueError as err:
+            print(f"Quantity error for 'key': {err}")
+            continue
+        if name in inv:
+            print(f"Redundant item '{name}' - discarting")
+            continue
+        inv[name] = value
+    return inv
 
 
-def ft_create_restock(restock: list[str], inv: dict[str, int]) -> None:
-    for item, qty in inv.items():
-        if qty <= 1:
-            restock.append(item)
+def items_perc(inv: dict[str, int], tot: int) -> None:
+    for name, value in inv.items():
+        perc: float = (100 * value) / tot
+        print(f"Item {name} represents {perc:.1f}%")
+
+
+def mabund_item(inv: dict[str, int]) -> None:
+    max_val: int = 0
+    for val in inv.values():
+        if val > max_val:
+            max_val = val
+
+    for name, val in inv.items():
+        if val == max_val:
+            print(f"Item most abundant: {name} with quantity {val}")
+            break
+
+
+def labund_item(inv: dict[str, int]) -> None:
+    values: list[int] = list(inv.values())
+    min_val: int = values[0]
+    for val in inv.values():
+        if val < min_val:
+            min_val = val
+
+    for name, val in inv.items():
+        if val == min_val:
+            print(f"Item least abundant: {name} with quantity {val}")
+            break
 
 
 def main() -> None:
@@ -62,38 +72,17 @@ def main() -> None:
         print("Usage: python3 ft_inventory_system.py <item1 name>: <item1 amount>...")
     else:
         print("=== Inventory System Analysis ===")
-
-        inventory: dict[str, int] = {}
-        ft_add_items(sys.argv[1:], inventory)
-
-        total_items = sum(inventory.values())
-        print(f"Total items in inventory: {total_items}")
-
-        unique = len(inventory)
-        print(f"Unique item types: {unique}")
-
-        print("\n=== Current Inventory ===")
-        ft_display_items(inventory, total_items)
-
-        print("\n=== Inventory Statistics ===")
-        ft_display_exremes(inventory)
-
-        print("\n=== Item Categories ===")
-        categories: dict[str, dict[str, int]] = {"Moderate": {}, "Scarce": {}}
-        ft_create_categories(categories, inventory)
-        print(f"Moderate: {categories['Moderate']}")
-        print(f"Scarce: {categories['Scarce']}")
-
-        print("\n=== Management Suggestions ===")
-        restock: list[str] = []
-        ft_create_restock(restock, inventory)
-        print(f"Restock needed: {", ".join(restock)}")
-
-        print("\n=== Dictionary Properties Demo ===")
-        print(f"Dictionary keys: {", ".join(inventory.keys())}")
-        print(f"Dictionary values: {", ".join(map(str, inventory.values()))}")
-        print(f"Sample lookup - 'sword' in inventory: {"sword" in inventory}")
-    
+        inventory: dict[str, int] | None = create_dict(sys.argv)
+        print(f"Got inventory: {inventory}")
+        invlist: list[str] = list(inventory.keys())
+        print(f"Item list: {invlist}")
+        total_items: int = sum(inventory.values())
+        print(f"Total quantity of the {len(inventory)} items: {total_items}")
+        items_perc(inventory, total_items)
+        mabund_item(inventory)
+        labund_item(inventory)
+        inventory.update({"magic_item": 1})
+        print(f"Updated inventory: {inventory}")
 
 
 if __name__ == "__main__":
