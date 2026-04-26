@@ -1,7 +1,10 @@
 from typing import Generator
 import random
 
-def consume_event(events: list[tuple[str, str]]) -> Generator[list[tuple[str, str]], None, None]:
+
+def consume_event(
+        events: list[tuple[str, str]]
+        ) -> Generator[list[tuple[str, str]], None, None]:
     while events:
         i: int = random.randint(0, len(events) - 1)
         print(f"Got event from list: {events[i]}")
@@ -9,7 +12,9 @@ def consume_event(events: list[tuple[str, str]]) -> Generator[list[tuple[str, st
         yield events
 
 
-def gen_event(players: list[str], action: list[str]) -> Generator[tuple[str, str], None, None]:
+def gen_event(
+        players: list[str], action: list[str]
+        ) -> Generator[tuple[str, str], None, None]:
     while True:
         yield (random.choice(players), random.choice(action))
 
@@ -17,7 +22,9 @@ def gen_event(players: list[str], action: list[str]) -> Generator[tuple[str, str
 def main() -> None:
     print("=== Game Data Stream Processor ===")
     players: list[str] = ["bob", "alice", "dylan", "charlie"]
-    actions: list[str] = ["run", "eat", "sleep", "move", "climb", "drown", "release", "swim"]
+    actions: list[str] = ["run", "eat", "sleep", "move",
+                          "climb", "drown", "release",
+                          "swim"]
     event: Generator[tuple[str, str], None, None] = gen_event(players, actions)
     for i in range(100):
         tuple_ev = next(event)

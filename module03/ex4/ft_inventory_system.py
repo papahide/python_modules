@@ -1,7 +1,9 @@
 import sys
 
+
 class ItemError(Exception):
     pass
+
 
 def check_item(arg: str) -> bool:
     for i in arg:
@@ -9,10 +11,11 @@ def check_item(arg: str) -> bool:
             return True
     return False
 
+
 def create_dict(args: list[str]) -> dict[str, int]:
     inv: dict[str, int] = {}
     for arg in args:
-        if check_item(arg) == True:
+        if check_item(arg) is True:
             name = ""
             value = ""
             for i in range(len(arg)):
@@ -69,7 +72,8 @@ def main() -> None:
     argn = len(sys.argv)
     if argn < 2:
         print("No items added..")
-        print("Usage: python3 ft_inventory_system.py <item1 name>: <item1 amount>...")
+        print("Usage: python3 ft_inventory_system.py "
+              "<item1 name>: <item1 amount>...")
     else:
         print("=== Inventory System Analysis ===")
         inventory: dict[str, int] | None = create_dict(sys.argv)

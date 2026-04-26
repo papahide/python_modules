@@ -8,10 +8,13 @@ class Player:
 
 
 def gen_player_achievements() -> set[str]:
-    total_ach: list[str] = ['Crafting Genius', 'World Savior', 'Master Explorer', 
-                              'Collector Supreme', 'Untouchable', 'Boss Slayer', 
-                              'Strategist', 'Speed Runner', 'Survivor', 'Treasure Hunter', 
-                              'First Steps', 'Sharp Mind',  'Unstopable']
+    total_ach: list[str] = ['Crafting Genius', 'World Savior',
+                            'Master Explorer', 'Collector Supreme',
+                            'Untouchable', 'Boss Slayer',
+                            'Strategist', 'Speed Runner',
+                            'Survivor', 'Treasure Hunter',
+                            'First Steps', 'Sharp Mind',
+                            'Unstopable']
     ach_len = random.randint(4, 10)
     ach_player = random.sample(total_ach, k=ach_len)
     return set(ach_player)
@@ -24,7 +27,7 @@ def main() -> None:
                                     "Bob": gen_player_achievements(),
                                     "Charlie": gen_player_achievements(),
                                     "Dylan": gen_player_achievements()}
-    
+
     for name, acheivements in players.items():
         print(f"Player {name}: {acheivements}")
 
@@ -50,6 +53,7 @@ def main() -> None:
 
     for name, acheivements in players.items():
         print(f"{name} is missing: {all_distinct.difference(acheivements)}")
+
 
 if __name__ == "__main__":
     main()

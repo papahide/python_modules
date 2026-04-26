@@ -6,7 +6,8 @@ def get_player_pos() -> tuple[float, float, float]:
     permitted = "0123456789.-, "
     """
     while True:
-        coord_str = input("Enter new coordinates as floats in format 'x,y,z': ")
+        coord_str = input("Enter new coordinates as "
+                          "floats in format 'x,y,z': ")
 
         comma_count = 0
         for char in coord_str:
@@ -31,7 +32,9 @@ def get_player_pos() -> tuple[float, float, float]:
                         else:
                             raise ValueError
                     except ValueError:
-                        print(f"Error on parameter '{current_nbr}': could not convert string to float: '{current_nbr}'")
+                        print(f"Error on parameter '{current_nbr}': "
+                              f"could not convert string to float: "
+                              f"'{current_nbr}'")
                         error = True
                         break
                 elif char != " ":
@@ -54,7 +57,8 @@ def ft_display_coords(coords: tuple[float, float, float]) -> None:
     print(f"It includes: X={coords[0]}, Y={coords[1]}, Z={coords[2]}")
 
 
-def ft_distance(p1: tuple[float, float, float], p2: tuple[float, float, float]) -> float:
+def ft_distance(p1: tuple[float, float, float],
+                p2: tuple[float, float, float]) -> float:
     x1, y1, z1 = p1
     x2, y2, z2 = p2
     distance = math.sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)
