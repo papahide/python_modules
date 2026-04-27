@@ -15,8 +15,8 @@ def gen_player_achievements() -> set[str]:
                             'Survivor', 'Treasure Hunter',
                             'First Steps', 'Sharp Mind',
                             'Unstopable']
-    ach_len = random.randint(4, 10)
-    ach_player = random.sample(total_ach, k=ach_len)
+    ach_len: int = random.randint(4, 10)
+    ach_player: list[str] = random.sample(total_ach, k=ach_len)
     return set(ach_player)
 
 
@@ -33,7 +33,7 @@ def main() -> None:
 
     all_distinct: set[str] = set()
 
-    all_values = list(players.values())
+    all_values: list[set[str]] = list(players.values())
     common: set[str] = all_values[0].intersection(*all_values[1:])
 
     for ach in players.values():

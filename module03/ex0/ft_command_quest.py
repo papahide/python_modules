@@ -15,11 +15,14 @@ def ft_args(argv: list[str]) -> None:
 
 def main() -> None:
     print("=== Command Quest ===")
-    argn = len(sys.argv)
+    prog_name: str = sys.argv[0]
+
+    print(f"Program name: {prog_name}")
+    argn: int = len(sys.argv)
+
     if argn == 1:
         ft_no_args()
-    prog_name = sys.argv[0]
-    print(f"Program name: {prog_name}")
+
     if argn > 1:
         ft_args(sys.argv[1:])
     print(f"Total arguments: {argn}")

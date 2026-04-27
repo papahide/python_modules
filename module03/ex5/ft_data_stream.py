@@ -27,9 +27,9 @@ def main() -> None:
                           "swim"]
     event: Generator[tuple[str, str], None, None] = gen_event(players, actions)
     for i in range(100):
-        tuple_ev = next(event)
-        name = tuple_ev[0]
-        action = tuple_ev[1]
+        tuple_ev: tuple[str, str] = next(event)
+        name: str = tuple_ev[0]
+        action: str = tuple_ev[1]
         print(f"Event {i}: Player {name} did action {action}")
     event: Generator[tuple[str, str], None, None] = gen_event(players, actions)
     ten_events: list[tuple[str, str]] = []

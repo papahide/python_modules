@@ -16,8 +16,8 @@ def create_dict(args: list[str]) -> dict[str, int]:
     inv: dict[str, int] = {}
     for arg in args:
         if check_item(arg) is True:
-            name = ""
-            value = ""
+            name: str = ""
+            value: str | int = ""
             for i in range(len(arg)):
                 if arg[i] == ":":
                     name = arg[:i]
@@ -69,7 +69,7 @@ def labund_item(inv: dict[str, int]) -> None:
 
 
 def main() -> None:
-    argn = len(sys.argv)
+    argn: int = len(sys.argv)
     if argn < 2:
         print("No items added..")
         print("Usage: python3 ft_inventory_system.py "

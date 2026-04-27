@@ -6,10 +6,10 @@ def get_player_pos() -> tuple[float, float, float]:
     permitted = "0123456789.-, "
     """
     while True:
-        coord_str = input("Enter new coordinates as "
+        coord_str: str = input("Enter new coordinates as "
                           "floats in format 'x,y,z': ")
 
-        comma_count = 0
+        comma_count: int = 0
         for char in coord_str:
             if char == ",":
                 comma_count += 1
@@ -19,8 +19,8 @@ def get_player_pos() -> tuple[float, float, float]:
             continue
 
         final_coords: list[float] = []
-        current_nbr = ""
-        error = False
+        current_nbr: str | float = ""
+        error: bool = False
 
         try:
             for char in coord_str + ",":
@@ -61,7 +61,7 @@ def ft_distance(p1: tuple[float, float, float],
                 p2: tuple[float, float, float]) -> float:
     x1, y1, z1 = p1
     x2, y2, z2 = p2
-    distance = math.sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)
+    distance: float = math.sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)
     return distance
 
 
@@ -75,7 +75,7 @@ def main() -> None:
     print(f"Distance to center: {dist_center:.4f}")
 
     print("\nGet a second set of coordinates")
-    second_coord = get_player_pos()
+    second_coord: tuple[float, float, float] = get_player_pos()
     dist_points: float = ft_distance(first_coord, second_coord)
     print(f"Distance to center: {dist_points:.4f}")
 
