@@ -26,7 +26,7 @@ def main() -> None:
                           "climb", "drown", "release",
                           "swim"]
     event: Generator[tuple[str, str], None, None] = gen_event(players, actions)
-    for i in range(100):
+    for i in range(1000):
         tuple_ev: tuple[str, str] = next(event)
         name: str = tuple_ev[0]
         action: str = tuple_ev[1]

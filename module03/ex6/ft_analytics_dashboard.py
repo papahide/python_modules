@@ -2,13 +2,13 @@ import random
 
 
 def main() -> None:
-    print("=== Game Data Alchemist ===")
+    print("=== Game Data Alchemist ===\n")
 
     players: list[str] = ['Alice', 'bob',
                           'Charlie', 'dylan',
                           'Emma', 'Gregory',
                           'john', 'kevin',
-                          'liam']
+                          'Liam']
     to_cap_play: list[str] = [player.capitalize() for player in players]
     capitalize_play: list[str] | None = [
         player for player in players if player[0].isupper()]
