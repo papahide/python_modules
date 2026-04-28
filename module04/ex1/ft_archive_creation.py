@@ -36,7 +36,7 @@ def file_actions(file_name: str) -> None:
     print("---\n")
     print(f"{new_content}")
     print("\n---")
-    new_name: str = input("Enter new file name: ")
+    new_name: str = input("Enter new file name (or empty): ")
     if not new_name:
         print("Not saving data.")
         return
@@ -49,18 +49,18 @@ def file_actions(file_name: str) -> None:
 def main() -> None:
     argn: int = len(sys.argv)
     if argn < 2:
-        print("Usage: ft_ancient_text.py <file>")
+        print("Usage: ft_archive_creation.py <file>\n")
     else:
         print("=== Cyber Archives Recovery & Preservation ===")
         try:
             print(f"Accessing file '{sys.argv[1]}'")
             file_actions(sys.argv[1])
         except FileNotFoundError as ferr:
-            print(f"Error opening file '{sys.argv[1]}': {ferr}")
+            print(f"Error opening file '{sys.argv[1]}': {ferr}\n")
         except PermissionError as perr:
-            print(f"Error opening file '{sys.argv[1]}': {perr}")
+            print(f"Error opening file '{sys.argv[1]}': {perr}\n")
         except IsADirectoryError as derr:
-            print(f"Error opening file '{sys.argv[1]}': {derr}")
+            print(f"Error opening file '{sys.argv[1]}': {derr}\n")
 
 
 if __name__ == "__main__":

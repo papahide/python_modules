@@ -64,7 +64,7 @@ def file_actions(file_name: str) -> None:
 def main() -> None:
     argn: int = len(sys.argv)
     if argn < 2:
-        print("Usage: ft_ancient_text.py <file>")
+        print("Usage: ft_stream_management.py <file>\n")
     else:
         print("=== Cyber Archives Recovery & Preservation ===")
         try:
@@ -72,13 +72,13 @@ def main() -> None:
             file_actions(sys.argv[1])
         except FileNotFoundError as ferr:
             sys.stderr.write(f"[STDERR] Error opening "
-                             f"file '{sys.argv[1]}': {ferr}")
+                             f"file '{sys.argv[1]}': {ferr}\n")
         except PermissionError as perr:
             sys.stderr.write(f"[STDERR] Error opening "
-                             f"file '{sys.argv[1]}': {perr}")
+                             f"file '{sys.argv[1]}': {perr}\n")
         except IsADirectoryError as derr:
             sys.stderr.write(f"[STDERR] Error opening "
-                             f"file '{sys.argv[1]}': {derr}")
+                             f"file '{sys.argv[1]}': {derr}\n")
 
 
 if __name__ == "__main__":
