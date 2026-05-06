@@ -1,6 +1,6 @@
 from alchemy.elements import create_air
 from alchemy.elements import create_earth
-from elements import create_fire, create_water  # type: ignore
+from elements import create_fire, create_water
 
 
 def healing_potion() -> str:

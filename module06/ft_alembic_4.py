@@ -8,7 +8,7 @@ def main() -> None:
     print(f"Testing create_air: {air}\n")
     print("Now show that not all functions can be reached")
     print("This will raise an exception!")
-    earth: str = alchemy.create_earth()  # type: ignore
+    earth: str = alchemy.create_earth()
     print(f"Testing the hidden create_earth: {earth}\n")
 
 
