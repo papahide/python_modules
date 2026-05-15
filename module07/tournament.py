@@ -4,9 +4,9 @@ import ex2
 
 
 def battle(opponent1: tuple[ex0.CreatureFactory,
-                                   ex2.BattleStrategy],
-                  opponent2: tuple[ex0.CreatureFactory,
-                                   ex2.BattleStrategy]) -> None:
+                            ex2.BattleStrategy],
+           opponent2: tuple[ex0.CreatureFactory,
+                            ex2.BattleStrategy]) -> None:
     print("\n* Battle *")
     creature1 = opponent1[0].create_base()
     creature2 = opponent2[0].create_base()
@@ -32,10 +32,13 @@ def tournament_format(tourn: list[tuple[ex0.CreatureFactory,
                                         ex2.BattleStrategy]]) -> str:
     parts: list[str] = []
     for factory, strategy in tourn:
-        if isinstance(factory, (ex1.TransformCreatureFactory, ex1.HealingCreatureFactory)):
-            parts.append(f"({factory.create_base().family_name}+{strategy.name.capitalize()})")
+        if isinstance(factory, (ex1.TransformCreatureFactory,
+                                ex1.HealingCreatureFactory)):
+            parts.append(f"({factory.create_base().family_name}+"
+                         f"{strategy.name.capitalize()})")
         else:
-            parts.append(f"({factory.create_base().name}+{strategy.name.capitalize()})")
+            parts.append(f"({factory.create_base().name}+"
+                         f"{strategy.name.capitalize()})")
     return "[ " + ", ".join(parts) + " ]"
 
 
