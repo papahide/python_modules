@@ -32,7 +32,7 @@ def tournament_format(tourn: list[tuple[ex0.CreatureFactory,
                                         ex2.BattleStrategy]]) -> str:
     parts: list[str] = []
     for factory, strategy in tourn:
-        if isinstance(factory, ex1.TransformCreatureFactory or ex1.HealingCreatureFactory):
+        if isinstance(factory, (ex1.TransformCreatureFactory, ex1.HealingCreatureFactory)):
             parts.append(f"({factory.create_base().family_name}+{strategy.name.capitalize()})")
         else:
             parts.append(f"({factory.create_base().name}+{strategy.name.capitalize()})")
