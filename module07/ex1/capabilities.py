@@ -3,6 +3,8 @@ from ex0.creatures import Creature, CreatureFactory
 
 
 class HealCapability(ABC):
+    def __init__(self) -> None:
+        self.family_name: str = "Healing"
 
     @abstractmethod
     def heal(self) -> str:
@@ -11,6 +13,7 @@ class HealCapability(ABC):
 
 class TransformCapability(ABC):
     def __init__(self) -> None:
+        self.family_name: str = "Transform"
         self.transf: bool = False
 
     @abstractmethod
@@ -25,6 +28,7 @@ class TransformCapability(ABC):
 class Sproutling(Creature, HealCapability):
     def __init__(self) -> None:
         Creature.__init__(self, "Sproutling", "Grass")
+        HealCapability.__init__(self)
 
     def attack(self) -> str:
         return f"{self.name} uses Vine Whip!"
@@ -36,6 +40,7 @@ class Sproutling(Creature, HealCapability):
 class Bloomelle(Creature, HealCapability):
     def __init__(self) -> None:
         Creature.__init__(self, "Bloomelle", "Grass/Fairy")
+        HealCapability.__init__(self)
 
     def attack(self) -> str:
         return f"{self.name} uses Petal Dance!"

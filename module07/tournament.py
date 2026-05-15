@@ -3,7 +3,7 @@ import ex1
 import ex2
 
 
-def single_battle(opponent1: tuple[ex0.CreatureFactory,
+def battle(opponent1: tuple[ex0.CreatureFactory,
                                    ex2.BattleStrategy],
                   opponent2: tuple[ex0.CreatureFactory,
                                    ex2.BattleStrategy]) -> None:
@@ -21,18 +21,21 @@ def single_battle(opponent1: tuple[ex0.CreatureFactory,
         print(f"Battle error, aborting tournament: {err}")
 
 
-def battles(opponents: list[tuple[ex0.CreatureFactory,
+def single_battle(opponents: list[tuple[ex0.CreatureFactory,
                                   ex2.BattleStrategy]]) -> None:
     for i in range(len(opponents)):
         for j in range(i + 1, len(opponents)):
-            single_battle(opponents[i], opponents[j])
+            battle(opponents[i], opponents[j])
 
 
 def tournament_format(tourn: list[tuple[ex0.CreatureFactory,
                                         ex2.BattleStrategy]]) -> str:
     parts: list[str] = []
     for factory, strategy in tourn:
-        parts.append(f"({factory.create_base().name}+{strategy.name})")
+        if isinstance(factory, ex1.TransformCreatureFactory or ex1.HealingCreatureFactory):
+            parts.append(f"({factory.create_base().family_name}+{strategy.name.capitalize()})")
+        else:
+            parts.append(f"({factory.create_base().name}+{strategy.name.capitalize()})")
     return "[ " + ", ".join(parts) + " ]"
 
 
@@ -41,7 +44,7 @@ def tournament_output(tournament: list[tuple[ex0.CreatureFactory,
     print(" " + tournament_format(tournament))
     print("*** Tournament ***")
     print(f"{len(tournament)} opponents involved")
-    battles(tournament)
+    single_battle(tournament)
 
 
 def main() -> None:
