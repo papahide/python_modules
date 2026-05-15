@@ -32,7 +32,7 @@ class NumericProcessor(DataProcessor):
     def __init__(self) -> None:
         super().__init__()
 
-    def validate(self, data: Any) -> bool:
+    def validate(self, data: list[int | float] | int | float) -> bool:
         if isinstance(data, (int, float)):
             return True
         elif isinstance(data, list):
@@ -83,7 +83,7 @@ class LongProcessor(DataProcessor):
     def __init__(self) -> None:
         super().__init__()
 
-    def validate(self, data: Any) -> bool:
+    def validate(self, data: list[dict]) -> bool:
         if isinstance(data, dict):
             return all(isinstance(k, str) and
                        isinstance(v, str)

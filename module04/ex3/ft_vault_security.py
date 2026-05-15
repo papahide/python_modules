@@ -11,7 +11,7 @@ def secure_archive(unchecked_file: str, mode: str, content: str
                 return (True, file.read())
             else:
                 return (False, "Only modes available: r (read) and w (write)")
-    except FileNotFoundError as err:
+    excep as err:
         result = (False, str(err))
         return (result)
     except PermissionError as err:
