@@ -5,7 +5,7 @@ try:
     import pandas as pd
     from matplotlib import pyplot
     import numpy as np
-except ModuleNotFoundError as err:
+except ModuleNotFoundError:
     pass
 
 
@@ -48,11 +48,11 @@ def main() -> None:
             print(f"{dep_check} {key} - Not installed (optional).")
             all_dependencies = False
     if not all_dependencies:
-        print(f"\nERROR: some dependencies are not installed."
-              f"\n\nTo install using pip:"
-               "\n  pip install -r ex1/requirements.txt"
-              f"\nTo install using Poetry:"
-               "\n  poetry install")
+        print("\nERROR: some dependencies are not installed."
+              "\n\nTo install using pip:"
+              "\n  pip install -r ex1/requirements.txt"
+              "\nTo install using Poetry:"
+              "\n  poetry install")
         sys.exit(1)
     print("\nAnalyzing Matrix data...")
     n_data = 1000
