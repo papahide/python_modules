@@ -1,16 +1,12 @@
 import sys
-
+from importlib import metadata, util
 
 try:
-    from importlib import metadata, util
+    import pandas as pd
     from matplotlib import pyplot
     import numpy as np
-    import pandas as pd
 except ModuleNotFoundError as err:
-    print(f"ERROR: {err} not installed."
-          f"\nTo install use: pip install "
-          "-r ex1/requirements.txt")
-    sys.exit(1)
+    pass
 
 
 def check_dependencie(dependencie: str) -> str:
@@ -20,12 +16,12 @@ def check_dependencie(dependencie: str) -> str:
     return "[OK]"
 
 
-def gen_matrix_data(number_data: int) -> np.ndarray:
+def gen_matrix_data(number_data: int) -> "np.ndarray":
     data = np.random.uniform(0, 100, number_data)
     return data
 
 
-def pnd_analysis_gen(data: np.ndarray) -> None:
+def pnd_analysis_gen(data: "np.ndarray") -> None:
     file_name: str = "matrix_analysis.png"
     df = pd.DataFrame(data, columns=["value"])
     pyplot.hist(df)
@@ -42,6 +38,7 @@ def main() -> None:
                                     "numpy": "Numerical computation ready",
                                     "requests": "Network access ready",
                                     "matplotlib": "Visualization ready"}
+    all_dependencies: bool = True
     print("\nChecking dependencies:")
     for key, value in dependencies.items():
         dep_check: str = check_dependencie(key)
@@ -49,6 +46,14 @@ def main() -> None:
             print(f"{dep_check} {key} ({metadata.version(key)}) - {value}")
         else:
             print(f"{dep_check} {key} - Not installed (optional).")
+            all_dependencies = False
+    if not all_dependencies:
+        print(f"\nERROR: some dependencies are not installed."
+              f"\n\nTo install using pip:"
+               "\n  pip install -r ex1/requirements.txt"
+              f"\nTo install using Poetry:"
+               "\n  poetry install")
+        sys.exit(1)
     print("\nAnalyzing Matrix data...")
     n_data = 1000
     print(f"Processing {n_data} data points...")

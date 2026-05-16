@@ -1,4 +1,6 @@
-import os, sys, site
+import os
+import sys
+import site
 
 
 def detect_venv(curr_dir: str, global_dir: str) -> bool:
@@ -35,7 +37,7 @@ def get_instructions(venv: bool) -> str:
                 "\nsource matrix_env/bin/activate # On Unix"
                 "\nmatrix_env\\Scripts\\activate # On Windows"
                 "\n\nThen run this program again.")
-    return ("Package installation path:"
+    return ("\nPackage installation path:"
             f"{site.getsitepackages()[0]}")
 
 
