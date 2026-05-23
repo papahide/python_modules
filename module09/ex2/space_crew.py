@@ -26,7 +26,7 @@ class SpaceMission(BaseModel):
     mission_name: str = Field(min_length=3, max_length=100)
     destination: str = Field(min_length=3, max_length=50)
     launch_date: datetime
-    duration_days: int = Field(ge=1, le=3650) 
+    duration_days: int = Field(ge=1, le=3650)
     crew: list[CrewMember] = Field(min_length=1, max_length=12)
     mission_status: str = "planned"
     budget_millions: float = Field(ge=1.0, le=10000.0)
@@ -35,12 +35,14 @@ class SpaceMission(BaseModel):
     def mission_validator(self) -> "SpaceMission":
         if not self.mission_id.startswith("M"):
             raise ValueError("Mission ID must start with \"M\"")
-        has_leader = any(m.rank in [Ranks.captain, Ranks.commander] for m in self.crew)
+        has_leader = any(m.rank in [Ranks.captain, Ranks.commander]
+                         for m in self.crew)
         if not has_leader:
             raise ValueError("Must have at least one Commander or Captain")
         experienced = sum(1 for m in self.crew if m.years_experience >= 5)
         if self.duration_days > 365 and experienced < len(self.crew) / 2:
-            raise ValueError("Long missions (> 365 days) need 50% experienced crew (5+ years)")
+            raise ValueError("Long missions (> 365 days) need 50% "
+                             "experienced crew (5+ years)")
         active_check = True
         for member in self.crew:
             if not member.is_active:
@@ -61,7 +63,8 @@ def display_mission(mission: SpaceMission) -> None:
     print(f"Crew size: {len(mission.crew)}")
     print("Crew members:")
     for member in mission.crew:
-        print(f"- {member.name} ({member.rank.value}) - {member.specialization}")
+        print(f"- {member.name} ({member.rank.value}) - "
+              f"{member.specialization}")
 
 
 def main() -> None:

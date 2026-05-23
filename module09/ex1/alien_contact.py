@@ -28,11 +28,14 @@ class AlienContact(BaseModel):
             raise ValueError("Alien Contact must start with \"AC\" ")
         if self.contact_type == ContactType.physical and not self.is_verified:
             raise ValueError("Physical contact reports must be verified")
-        if self.contact_type == ContactType.telepathic and self.witness_count < 3:
-            raise ValueError("Telepathic contact requires at least 3 witnesses")
+        if self.contact_type == ContactType.telepathic and \
+           self.witness_count < 3:
+            raise ValueError("Telepathic contact requires "
+                             "at least 3 witnesses")
         if self.signal_strength >= 7.0 and not self.message_received:
-            raise ValueError("Strong signals (> 7.0) should include received messages")
-        return self 
+            raise ValueError("Strong signals (> 7.0) should "
+                             "include received messages")
+        return self
 
 
 def display_alien_contact(alien_contact: AlienContact) -> None:
@@ -50,12 +53,13 @@ def main() -> None:
     print("Alien Contact Log Validation")
     try:
         valid_alien_contact = AlienContact(contact_id="AC_2024_001",
-                                        contact_type=ContactType.telepathic,
-                                        location="Area 51, Nevada",
-                                        signal_strength=8.5,
-                                        duration_minutes=45,
-                                        witness_count=5,
-                                        message_received="Greetings from Zeta Reticuli")
+                                           contact_type=ContactType.telepathic,
+                                           location="Area 51, Nevada",
+                                           signal_strength=8.5,
+                                           duration_minutes=45,
+                                           witness_count=5,
+                                           message_received="Greetings "
+                                           "from Zeta Reticuli")
         display_alien_contact(valid_alien_contact)
     except ValidationError as err:
         print("Expected validation error:")
@@ -66,12 +70,13 @@ def main() -> None:
     print("\n======================================")
     try:
         error_alien_contact = AlienContact(contact_id="AC_2024_001",
-                                        contact_type=ContactType.telepathic,
-                                        location="Area 51, Nevada",
-                                        signal_strength=8.5,
-                                        duration_minutes=45,
-                                        witness_count=2,
-                                        message_received="Greetings from Zeta Reticuli")
+                                           contact_type=ContactType.telepathic,
+                                           location="Area 51, Nevada",
+                                           signal_strength=8.5,
+                                           duration_minutes=45,
+                                           witness_count=2,
+                                           message_received="Greetings from "
+                                           "Zeta Reticuli")
         display_alien_contact(error_alien_contact)
     except ValidationError as err:
         print("Expected validation error:")
