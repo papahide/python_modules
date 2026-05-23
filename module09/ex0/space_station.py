@@ -10,11 +10,13 @@ class SpaceStation(BaseModel):
     power_level: float = Field(ge=0.0, le=100.0, alias="Power")
     oxygen_level: float = Field(ge=0.0, le=100.0, alias="Oxygen")
     is_operational: bool = True
-    notes: Optional[str] = Field(min_length=0, max_length=100, alias="Notes")
+    notes: Optional[str] = Field(min_length=0, max_length=200, alias="Notes")
     last_maintenance: datetime = datetime(2000, 1, 1)
 
 
 def display_station(station: SpaceStation) -> None:
+    if not station:
+        return
     for key, value in station.model_dump(by_alias=True).items():
         if key == "last_maintenance":
             continue
@@ -45,13 +47,13 @@ def main() -> None:
             print(error["msg"])
     print("\n========================================")
     try:
-        station = SpaceStation(ID="ISS001",
+        station = SpaceStation(ID="ISS001fasdfasdfas",
                                Name="International Space Station",
-                               Crew=25,
+                               Crew=2225,
                                Power=200.5,
-                               Oxygen=92.3,
-                               is_operational=True,
-                               Notes="Don't open trap door..")
+                               Oxygen=192.3,
+                               is_operational=12,
+                               Notes="")
         display_station(station)
     except ValidationError as err:
         print("Expected validation error:")

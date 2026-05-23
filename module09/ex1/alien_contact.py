@@ -25,22 +25,24 @@ class AlienContact(BaseModel):
     @model_validator(mode="after")
     def check_contact(self) -> 'AlienContact':
         if not self.contact_id.startswith("AC"):
-            raise ValueError("Alien Contact must start with \"AC\" ")
+            raise ValueError("Alien Contact must start with \"AC\"")
         if self.contact_type == ContactType.physical and not self.is_verified:
             raise ValueError("Physical contact reports must be verified")
         if self.contact_type == ContactType.telepathic and \
            self.witness_count < 3:
             raise ValueError("Telepathic contact requires "
                              "at least 3 witnesses")
-        if self.signal_strength >= 7.0 and not self.message_received:
+        if self.signal_strength > 7.0 and not self.message_received:
             raise ValueError("Strong signals (> 7.0) should "
                              "include received messages")
         return self
 
 
 def display_alien_contact(alien_contact: AlienContact) -> None:
+    if not alien_contact:
+        return
     print(f"ID: {alien_contact.contact_id}")
-    print(f"Type: {alien_contact.contact_type}")
+    print(f"Type: {alien_contact.contact_type.value}")
     print(f"Location: {alien_contact.location}")
     print(f"Signal: {alien_contact.signal_strength}/10")
     print(f"Duration: {alien_contact.duration_minutes} minutes")
@@ -51,7 +53,9 @@ def display_alien_contact(alien_contact: AlienContact) -> None:
 
 def main() -> None:
     print("Alien Contact Log Validation")
+    print("======================================")
     try:
+        print("Valid contact report:")
         valid_alien_contact = AlienContact(contact_id="AC_2024_001",
                                            contact_type=ContactType.telepathic,
                                            location="Area 51, Nevada",
@@ -64,24 +68,22 @@ def main() -> None:
     except ValidationError as err:
         print("Expected validation error:")
         for error in err.errors():
-            print(error["ctx"]["error"])
-    print("======================================")
-    print("Valid contact report:")
+            print(error["msg"])
     print("\n======================================")
     try:
-        error_alien_contact = AlienContact(contact_id="AC_2024_001",
+        error_alien_contact = AlienContact(contact_id="_2024_001",
                                            contact_type=ContactType.telepathic,
-                                           location="Area 51, Nevada",
-                                           signal_strength=8.5,
+                                           location="dasdfds",
+                                           signal_strength=0,
                                            duration_minutes=45,
                                            witness_count=2,
-                                           message_received="Greetings from "
+                                           message_received="Greetings from"
                                            "Zeta Reticuli")
         display_alien_contact(error_alien_contact)
     except ValidationError as err:
         print("Expected validation error:")
         for error in err.errors():
-            print(error["ctx"]["error"])
+            print(error["msg"])
 
 
 if __name__ == "__main__":

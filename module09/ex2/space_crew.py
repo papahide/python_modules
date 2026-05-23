@@ -4,11 +4,11 @@ from datetime import datetime
 
 
 class Ranks(Enum):
-    cadet = "Cadet"
-    officer = "Officer"
-    lieutenant = "Lieutenant"
-    captain = "Captain"
-    commander = "Commander"
+    cadet = "cadet"
+    officer = "officer"
+    lieutenant = "lieutenant"
+    captain = "captain"
+    commander = "commander"
 
 
 class CrewMember(BaseModel):
@@ -59,7 +59,7 @@ def display_mission(mission: SpaceMission) -> None:
     print(f"ID: {mission.mission_id}")
     print(f"Destination: {mission.destination}")
     print(f"Duration: {mission.duration_days} days")
-    print(f"Budget: {mission.budget_millions}M")
+    print(f"Budget: ${mission.budget_millions}M")
     print(f"Crew size: {len(mission.crew)}")
     print("Crew members:")
     for member in mission.crew:
@@ -97,7 +97,7 @@ def main() -> None:
                         years_experience=6,
                         is_active=True)
 
-        vlalid_mission = SpaceMission(
+        valid_mission = SpaceMission(
                                 mission_id="M2024_MARS",
                                 mission_name="Mars Colony Establishment",
                                 destination="Mars",
@@ -105,10 +105,10 @@ def main() -> None:
                                 duration_days=900,
                                 budget_millions=2500.0,
                                 crew=[sarah, john, alice])
-        display_mission(vlalid_mission)
+        display_mission(valid_mission)
     except ValidationError as err:
         for error in err.errors():
-            print(error["ctx"]["error"])
+            print(error["msg"])
     print("\n=========================================")
     print("Expected validation error:")
     try:
@@ -138,7 +138,7 @@ def main() -> None:
                         is_active=True)
 
         error_mission = SpaceMission(
-                                mission_id="M2024_MARS",
+                                mission_id="",
                                 mission_name="Mars Colony Establishment",
                                 destination="Mars",
                                 launch_date=datetime(2024, 7, 15),
@@ -148,7 +148,7 @@ def main() -> None:
         display_mission(error_mission)
     except ValidationError as err:
         for error in err.errors():
-            print(error["ctx"]["error"])
+            print(error["msg"])
 
 
 if __name__ == "__main__":
